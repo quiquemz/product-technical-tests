@@ -23,7 +23,7 @@ export default function buildAPI(express, routes) {
         res.send('pong');
     });
 
-    app.use('/docs/', express.static('../../docs'));
+    app.use('/docs/', express.static('docs'));
 
     _.each(routes, config => {
         const router = express();
