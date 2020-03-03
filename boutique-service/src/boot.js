@@ -3,6 +3,7 @@ import Bluebird from 'bluebird';
 import mongoose from 'mongoose';
 import apiConstructor from './httpApi/constructor';
 import v1api from './httpApi/v1';
+import v2api from './httpApi/v2';
 
 export function connectToMongo(mongoose, dbConnectionString){
     mongoose.connect(dbConnectionString);
@@ -17,7 +18,7 @@ export function connectToMongo(mongoose, dbConnectionString){
 function initHttpApi(){
     return new Bluebird((resolve, reject) => {
         try {
-            const routeConfig = [v1api];
+            const routeConfig = [v1api, v2api];
             const api = apiConstructor(express, routeConfig);
             return resolve(api);
         } catch (err) {
