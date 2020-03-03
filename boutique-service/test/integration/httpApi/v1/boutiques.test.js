@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import {expect} from 'chai';
 import boot from '../../../../src/boot';
 
-describe('Integration tests > httpApi > v1 > boutiques', function(){
+describe.skip('Integration tests > httpApi > v1 > boutiques', function(){
 
     let api;
 
