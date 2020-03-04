@@ -1,12 +1,16 @@
 import {Schema} from 'mongoose';
 
-export default {
-    name: Schema.Types.String,
-    slug: Schema.Types.String,
+export default new Schema({
+    name: {type: Schema.Types.String, required: true},
+    slug: {type: Schema.Types.String, required: true, unique: true},
     location: {
-      lon: Schema.Types.Number,
-      lat: Schema.Types.Number
+      lon: {type: Schema.Types.Number, required: true},
+      lat: {type: Schema.Types.Number, required: true}
     },
-    description: Schema.Types.String,
-    google_places_id: Schema.Types.String
-}
+    description: {type: Schema.Types.String, required: true},
+    google_places_id: {type: Schema.Types.String, required: true},
+    founder_quote: Schema.Types.String,
+    logo: {
+        url: Schema.Types.String
+    }
+});

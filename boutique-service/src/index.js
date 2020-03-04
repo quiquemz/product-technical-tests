@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import boot from './boot';
 
-// Adding .env variables 
+// Adding .env variables
 dotenv.config();
 
 boot({

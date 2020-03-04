@@ -1,4 +1,5 @@
 import compression from 'compression';
+import {json as jsonParser} from 'body-parser';
 import _ from 'lodash';
 import cors from 'cors';
 import * as models from '../models';
@@ -12,6 +13,8 @@ export default function buildAPI(express, routes) {
 
     app.use(compression());
     app.use(cors());
+
+    app.use(jsonParser());
 
     app.use((req, res, next) => {
         res.header('Cache-Control', 'no-cache');

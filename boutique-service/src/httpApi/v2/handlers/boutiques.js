@@ -2,7 +2,7 @@ export default function boutiques({models}, req, res, next) {
     const Boutique = models.boutique;
     Boutique.find({})
         .then(boutiques => {
-            res.send(boutiques);
+            res.status(200).send(boutiques);
         })
         .catch(next);
 }
