@@ -1,4 +1,8 @@
+import dotenv from 'dotenv';
 import boot from './boot';
+
+// Adding .env variables 
+dotenv.config();
 
 boot({
     environment: process.env.NODE_ENV || 'development',
