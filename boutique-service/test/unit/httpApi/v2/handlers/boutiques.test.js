@@ -20,7 +20,6 @@ describe('Unit Tests > httpApi > v2 > handlers > boutiques', () => {
         const next = assertion;
 
         boutiquesHandler({models}, req, res, next);
-
     });
 
     it('returns all of the entries in the boutique collection', done => {
@@ -40,6 +39,7 @@ describe('Unit Tests > httpApi > v2 > handlers > boutiques', () => {
         models.boutique.find.returns(Bluebird.resolve(boutiques));
         const req = {};
         const res = {
+            status: (x) => res, // To be able to run tests, else they keep hanging
             send: assertion
         };
         const next = function(){};

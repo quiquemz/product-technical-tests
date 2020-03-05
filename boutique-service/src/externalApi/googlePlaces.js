@@ -1,7 +1,7 @@
 import {get as axiosGet} from 'axios';
 import {format as urlFormat} from 'url';
 
-export default function googlePlacesId(name, {lat, lon}) {
+export default function(name, {lat, lon}) {
     const NOT_FOUND_RES = '-1';
     const reqUrl = urlFormat({
         protocol: 'https',

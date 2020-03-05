@@ -1,4 +1,4 @@
-import getGooglePaceId from '../../../api/googlePlacesId';
+import getGooglePlaceId from '../../../externalApi/googlePlaces';
 import "regenerator-runtime/runtime";
 
 export default async function createBoutique({models}, req, res, next) {
@@ -6,9 +6,9 @@ export default async function createBoutique({models}, req, res, next) {
     const boutique = req.body;
 
     // Adding google place id
-    boutique.google_places_id = await getGooglePaceId(boutique.name, boutique.location);
+    boutique.google_places_id = await getGooglePlaceId(boutique.name, boutique.location);
 
     Boutique.create(boutique)
-            .then(_boutique => res.stats(201).send(_boutique))
+            .then(_boutique => res.status(201).send(_boutique))
             .catch(err => res.status(500).send(err));
 }

@@ -2,10 +2,11 @@ import Bluebird from 'bluebird';
 import {expect} from 'chai';
 import {boutique as boutiqueHandler} from '../../../../../src/httpApi/v2/handlers';
 import generateMockModels from '../../../../utils/mocks/models';
+import generateMockBoutiques from '../../../../utils/mocks/boutiques';
 
 
 describe('Unit Tests > httpApi > v2 > handlers > boutique', () => {
-    const boutiques = [{_id: 1, slug: 'abcd'}, {_id: 2, slug: 'efgh'}];
+    const boutiques = generateMockBoutiques();
 
     it('passes any error onto the next callback', done => {
         const errorThrown = new Error('test error');
@@ -26,7 +27,6 @@ describe('Unit Tests > httpApi > v2 > handlers > boutique', () => {
         const next = assertion;
 
         boutiqueHandler({models}, req, res, next);
-
     });
 
     it('returns a boutique for given existing slug', done => {
@@ -44,6 +44,7 @@ describe('Unit Tests > httpApi > v2 > handlers > boutique', () => {
             }
         };
         const res = {
+            status: (x) => res, // To be able to run tests, else they keep hanging
             send: assertion
         };
         const next = function(){};
@@ -67,6 +68,7 @@ describe('Unit Tests > httpApi > v2 > handlers > boutique', () => {
             }
         };
         const res = {
+            status: (x) => res, // To be able to run tests, else they keep hanging
             send: assertion
         };
         const next = function(){};

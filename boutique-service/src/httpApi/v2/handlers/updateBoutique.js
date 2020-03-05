@@ -1,4 +1,4 @@
-import getGooglePlacesId from '../../../api/googlePlacesId';
+import getGooglePlacesId from '../../../externalApi/googlePlaces';
 import "regenerator-runtime/runtime";
 
 export default async function updateBoutique({models}, req, res, next) {
