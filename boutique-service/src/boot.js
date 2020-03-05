@@ -22,24 +22,44 @@ async function addGooglePlacesId(boutique) {
 
     // Only update if no google_places_id is found
     if (!boutique.google_places_id || boutique.google_places_id === '-1') {
-        boutique.google_places_id = await getGooglePlacesId(boutique.name, boutique.location);
+        const google_places_id = await getGooglePlacesId(boutique.name, boutique.location);
 
-        Boutique.findOneAndUpdate({slug: boutique.slug}, boutique, {new: true})
-                .then(boutique => console.log(boutique.name + ': (googlePlaceId -> ' + boutique.google_places_id + ')'))
-                .catch(err => console.log(err));
+        if (!boutique.google_places_id) {
+            boutique.google_places_id = google_places_id;
+            Boutique.findOneAndUpdate({slug: boutique.slug}, boutique);
+            return 1; // to keep count of updated boutiques
+        }
+
+        if (google_places_id !== '-1') {
+            boutique.google_places_id = google_places_id;
+            Boutique.findOneAndUpdate({slug: boutique.slug}, boutique);
+            return 1; // to keep count of updated boutiques
+        }
+
+
+
     }
+    return 0; // to keep count of updated boutiques
 }
 
 function updateMongoModels() {
     const Boutique = models.boutique;
+
     Boutique.find({})
         .then(async boutiques => {
             // Using for-loop to maintain order of calls
             // New request to google API will only be done
-            // after entry is updated 
+            // after entry is updated
+
+            console.log('Attempting to update existing boutiques...');
+            console.log('Boutiques to update: ' + boutiques.length);
+
+            let updateCount = 0;
             for (let i = 0; i < boutiques.length; i++) {
-                await addGooglePlacesId(boutiques[i])
+                updateCount += await addGooglePlacesId(boutiques[i])
             }
+
+            console.log('Boutiques actually updated: ' + updateCount);
         })
         .catch(err => new Error(err));
 }
@@ -58,9 +78,9 @@ function initHttpApi(){
 
 export default function boot({mongoConnectionString}){
     return connectToMongo(mongoose, mongoConnectionString)
+        .then(updateMongoModels)
         .then(initHttpApi)
         .then(api => {
             return {api};
         })
-        .then(updateMongoModels);
 }
