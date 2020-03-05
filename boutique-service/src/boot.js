@@ -26,18 +26,17 @@ async function addGooglePlacesId(boutique) {
 
         if (!boutique.google_places_id) {
             boutique.google_places_id = google_places_id;
-            Boutique.findOneAndUpdate({slug: boutique.slug}, boutique);
-            return 1; // to keep count of updated boutiques
+            return await Boutique.findOneAndUpdate({slug: boutique.slug}, boutique, {new: true})
+                            .then(() => 1) // to keep count of updated boutiques
+                            .catch(() => 0);
         }
 
         if (google_places_id !== '-1') {
             boutique.google_places_id = google_places_id;
-            Boutique.findOneAndUpdate({slug: boutique.slug}, boutique);
-            return 1; // to keep count of updated boutiques
+            return await Boutique.findOneAndUpdate({slug: boutique.slug}, boutique, {new: true})
+                            .then(() => 1) // to keep count of updated boutiques
+                            .catch(() => 0);
         }
-
-
-
     }
     return 0; // to keep count of updated boutiques
 }
