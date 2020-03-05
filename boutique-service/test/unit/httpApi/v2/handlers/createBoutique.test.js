@@ -9,10 +9,16 @@ import * as googlePlacesModule from '../../../../../src/externalApi/googlePlaces
 
 describe('Unit Tests > httpApi > v2 > handlers > create boutique', () => {
     const defaultGooglePlacesId = 'xyz';
-    const stub = Sinon.stub(googlePlacesModule, 'default').returns(defaultGooglePlacesId);
     const boutiques = generateMockBoutiques();
 
-    after(() => Sinon.restore());
+    let getGooglePlacesId;
+    before(() => {
+        getGooglePlacesId = Sinon.stub(googlePlacesModule, 'default').returns(defaultGooglePlacesId)}
+    );
+
+    after(() => {
+        Sinon.restore()
+    });
 
     it('returns error', done => {
         const errorThrown = new Error('test error');

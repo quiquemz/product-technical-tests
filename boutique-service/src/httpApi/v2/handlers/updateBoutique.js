@@ -8,9 +8,9 @@ export default async function updateBoutique({models}, req, res, next) {
 
     const boutique = await Boutique.findOne({slug})
                                 .then(_boutique => _boutique)
-                                .catch(err => err);
+                                .catch(err => 'Not found');
 
-    if (!boutique || typeof boutique === 'string') {
+    if (!boutique || boutique === 'Not found') {
         return res.status(404).send(`No boutique found with given slug: ${slug}`);
     }
 
