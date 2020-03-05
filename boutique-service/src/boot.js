@@ -5,7 +5,7 @@ import apiConstructor from './httpApi/constructor';
 import v1api from './httpApi/v1';
 import v2api from './httpApi/v2';
 import * as models from './models';
-import getGooglePlacesId from './externalApi/googlePlaces'
+import getGooglePlacesId from './externalApi/googlePlaces';
 
 export function connectToMongo(mongoose, dbConnectionString){
     mongoose.connect(dbConnectionString);
@@ -26,14 +26,14 @@ async function addGooglePlacesId(boutique) {
 
         if (!boutique.google_places_id) {
             boutique.google_places_id = google_places_id;
-            return await Boutique.findOneAndUpdate({slug: boutique.slug}, boutique, {new: true})
+            return Boutique.findOneAndUpdate({slug: boutique.slug}, boutique, {new: true})
                             .then(() => 1) // to keep count of updated boutiques
                             .catch(() => 0);
         }
 
         if (google_places_id !== '-1') {
             boutique.google_places_id = google_places_id;
-            return await Boutique.findOneAndUpdate({slug: boutique.slug}, boutique, {new: true})
+            return Boutique.findOneAndUpdate({slug: boutique.slug}, boutique, {new: true})
                             .then(() => 1) // to keep count of updated boutiques
                             .catch(() => 0);
         }
@@ -46,9 +46,8 @@ function updateMongoModels() {
 
     Boutique.find({})
         .then(async boutiques => {
-            // Using for-loop to maintain order of calls
-            // New request to google API will only be done
-            // after entry is updated
+            // Using for-loop (instead of for-each) to maintain order of calls
+            // New request to google API will only be done after entry is updated
 
             console.log('Attempting to update existing boutiques...');
             console.log('Boutiques to update: ' + boutiques.length);
