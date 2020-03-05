@@ -9,10 +9,9 @@ import * as googlePlacesModule from '../../../../../src/externalApi/googlePlaces
 
 describe('Unit Tests > httpApi > v2 > handlers > update boutique', () => {
     const defaultGooglePlacesId = 'xyz';
-    let getGooglePlacesId;
 
     before(() => {
-        getGooglePlacesId = Sinon.stub(googlePlacesModule, 'default').returns(defaultGooglePlacesId)}
+        Sinon.stub(googlePlacesModule, 'default').returns(defaultGooglePlacesId)}
     );
 
     after(() => {

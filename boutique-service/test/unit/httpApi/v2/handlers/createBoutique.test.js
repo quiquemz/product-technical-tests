@@ -11,9 +11,8 @@ describe('Unit Tests > httpApi > v2 > handlers > create boutique', () => {
     const defaultGooglePlacesId = 'xyz';
     const boutiques = generateMockBoutiques();
 
-    let getGooglePlacesId;
     before(() => {
-        getGooglePlacesId = Sinon.stub(googlePlacesModule, 'default').returns(defaultGooglePlacesId)}
+        Sinon.stub(googlePlacesModule, 'default').returns(defaultGooglePlacesId)}
     );
 
     after(() => {
