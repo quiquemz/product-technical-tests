@@ -85,12 +85,12 @@ export default function attachRoutes({ models, router, handlers }) {
     router.post('/boutiques', handlers.createBoutique.bind(undefined, {models}));
 
     /**
-     * @api {post} /v2/boutiques Attempts to create new given Boutique
-     * @apiName BoutiqueList
+     * @api {put} /v2/boutiques/:slug Attempts to update fields of existing Boutique with given :slug
+     * @apiName Boutique
      * @apiGroup Boutiques
      * @apiVersion 2.0.0
      *
-     * @apiDescription Attempts to create new given Boutique
+     * @apiDescription Attempts to update fields of existing Boutique with given :slug
      *
      * @apiSuccessExample {json} Success-Response:
      *     HTTP/1.1 200 OK
