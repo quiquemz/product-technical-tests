@@ -81,6 +81,7 @@ Return Object:
  1. Google API Key
 	 - Create *.env* file under *boutique-service*
 	 - Add environment-specific variable on new line in the form of `GOOGLE_API_KEY=[YOUR_API_KEY]`
+     - Note: if this step is not added, google_places_id's will all be populated with "-1" 
   2. Run service: `docker-compose up`
 
 ### Tests
